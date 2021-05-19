@@ -20,8 +20,8 @@ func newMgoSession(s *mgo.Session) *MgoSession {
 
 //GetMongoSession start a new mongo session
 func GetMongoSession(msg string, databaseURI string) (*MgoSession, error) {
-
 	mongoSession, err := mgo.Dial(databaseURI) // dial uri can be any mongodatabase
+	defer mongoSession.Close()
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf(`[MongoDB] %s`, err))
 	}

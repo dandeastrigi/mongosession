@@ -1,6 +1,8 @@
 package mongosession
 
 import (
+	"errors"
+	"fmt"
 	"log"
 	"time"
 
@@ -21,7 +23,7 @@ func GetMongoSession(msg string, databaseURI string) (*MgoSession, error) {
 
 	mongoSession, err := mgo.Dial(databaseURI) // dial uri can be any mongodatabase
 	if err != nil {
-		return nil, err
+		return nil, errors.New(fmt.Sprintf(`[MongoDB] %s`, err))
 	}
 
 	mongoSession.SetMode(mgo.Monotonic, true)
